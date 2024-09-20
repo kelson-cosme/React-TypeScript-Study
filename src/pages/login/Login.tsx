@@ -1,11 +1,13 @@
-import {useRef, useState } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom"
+
+
+import { InputLogin } from "./components/InputLogin";
 
 export const Login = () => {
 
     const navigate = useNavigate();
 
-    const inputSenhaRef = useRef(null)
 
     function handleClick(){
         navigate('/pagina-inicial')
@@ -28,6 +30,8 @@ export const Login = () => {
 
 
     return(
+        //Criando componentes customizados
+        // -----------------------------------
         <div>
             <h1>Página de login</h1>
             <button onClick={handleClick}>Voltar a principal</button>
@@ -35,28 +39,23 @@ export const Login = () => {
             <p>tamanho do email: {email.length}</p>
 
             <form action="">
-                <label htmlFor="">
-                    <span>Email</span>
-                    <input 
-                        type="email" 
-                        value={email} 
-                        onChange={e => setEmail(e.target.value)}  
-                        
-                        />
-                </label>
 
-                <label htmlFor="">
-                    <span>Senha</span>
+                <InputLogin 
+                    label="Email"
+                    type="email"
+                    value={email}
+                    onChange={newValue => setEmail(newValue)}
+                />                
 
-                    {/* Use Ref */}
-                    <input 
-                        ref={inputSenhaRef}
-                        type="password" 
-                        value={senha} 
-                        onChange={e => setSenha(e.target.value)}  
-                        onKeyDown={ e => e.key === "Enter" ? alert("Teclou enter"): undefined}
-                        />
-                </label>
+                <InputLogin 
+                    label="Senha"
+                    type="password"
+                    value={senha}
+                    onChange={newValue => setSenha(newValue)}
+                    onPressEnter={() => alert("Pressionou Enter")}
+                />    
+               
+
 
                 <button type="button" onClick={getUser}>Entrar</button>
             </form>
